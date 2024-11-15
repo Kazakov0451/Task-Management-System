@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="00" author="Kazakov Egor">
+        <createTable tableName="users" remarks="Пользователи">
+            <column name="id" remarks="Идентификатор" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="created_at" remarks="Дата создания" type="timestamp without time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" remarks="Имя" type="varchar(64)"/>
+            <column name="last_name" remarks="Фамилия" type="varchar(64)"/>
+            <column name="mail" remarks="Почта" type="varchar(128)">
+                <constraints unique="true"/>
+            </column>
+            <column name="role" remarks="Роль" type="varchar(32)"/>
+            <column name="password" remarks="Пароль" type="varchar(512)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="01" author="Kazakov Egor">
+        <createTable tableName="task" remarks="Задачи">
+            <column name="id" remarks="Идентификатор" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="created_at" remarks="Дата создания" type="timestamp without time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="author_by" remarks="Автор задачи" type="bigint">
+                <constraints references="users(id)" foreignKeyName="fk_author_by_users"/>
+            </column>
+            <column name="executor_by" remarks="Исполнитель задачи" type="bigint">
+                <constraints references="users(id)" foreignKeyName="fk_executor_by_users"/>
+            </column>
+            <column name="title" remarks="Заголовок" type="varchar(64)"/>
+            <column name="description" remarks="Описание" type="text"/>
+            <column name="status" remarks="Статус" type="varchar(16)"/>
+            <column name="priority" remarks="Приоритет" type="varchar(16)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="02" author="Kazakov Egor">
+        <createTable tableName="comment" remarks="Комментарии">
+            <column name="id" remarks="Идентификатор" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="created_at" remarks="Дата создания" type="timestamp without time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="task_id" remarks="Идентификатор задачи" type="bigint">
+                <constraints references="task(id)" foreignKeyName="fk_task_id_task"/>
+            </column>
+            <column name="author_id" remarks="Идентификатор автора комментария" type="bigint">
+                <constraints references="users(id)" foreignKeyName="fk_author_id_users"/>
+            </column>
+            <column name="text" remarks="Текст комментария" type="text"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
