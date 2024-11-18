@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "comment")
+@Table(name = "comment", schema = "public")
 public class Comment {
 
     /**
@@ -39,7 +39,7 @@ public class Comment {
      */
     @ManyToOne
     @JoinColumn(name = "author_id")
-    private Users author;
+    private User author;
 
     /**
      * Текст комментария

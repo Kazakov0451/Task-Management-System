@@ -1,4 +1,4 @@
-package com.effective.mobile.model.dto.users;
+package com.effective.mobile.model.dto.user;
 
 import com.effective.mobile.data.entity.enums.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -10,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "Возвращаемое ДТО пользователей")
-public class UsersResponseDto {
+public class UserResponseDto {
 
     /**
      * Идентификатор
@@ -34,11 +34,5 @@ public class UsersResponseDto {
      * Почта
      */
     @Schema(description = "Почта", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String mail;
-
-    /**
-     * Роль
-     */
-    @Schema(description = "Роль", requiredMode = Schema.RequiredMode.REQUIRED)
-    private Role role;
+    private String email;
 }

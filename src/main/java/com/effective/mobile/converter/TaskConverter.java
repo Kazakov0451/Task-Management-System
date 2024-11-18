@@ -1,9 +1,10 @@
 package com.effective.mobile.converter;
 
 import com.effective.mobile.data.entity.Task;
-import com.effective.mobile.data.entity.Users;
+import com.effective.mobile.data.entity.User;
 import com.effective.mobile.model.dto.task.TaskRequestDto;
 import com.effective.mobile.model.dto.task.TaskResponseDto;
+import com.effective.mobile.security.UserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
 @Component
 public class TaskConverter {
 
-    private final UsersConverter usersConverter;
+    private final UserConverter userConverter;
     private final CommentConverter commentConverter;
 
     /**
@@ -23,7 +24,7 @@ public class TaskConverter {
      * @param taskDto ДТО объект
      * @return ДАО объект
      */
-    public Task toEntity(TaskRequestDto taskDto, Set<Users> executorSet) {
+    public Task toEntity(TaskRequestDto taskDto, Set<User> executorSet) {
         if (taskDto == null) {
             return null;
         }
@@ -34,6 +35,7 @@ public class TaskConverter {
                 .status(taskDto.getStatus())
                 .priority(taskDto.getPriority())
                 .executorBy(executorSet)
+                .authorBy(UserDetails.getUser())
                 .build();
     }
 
@@ -54,12 +56,15 @@ public class TaskConverter {
                 .description(task.getDescription())
                 .status(task.getStatus())
                 .priority(task.getPriority())
+                .author(userConverter.toDto(task.getAuthorBy()))
                 .executorSet(task.getExecutorBy().stream()
-                        .map(usersConverter::toDto)
+                        .map(userConverter::toDto)
                         .collect(Collectors.toSet()))
-                .commentList(task.getCommentList().stream()
+                .commentList(task.getCommentList() != null
+                        ? task.getCommentList().stream()
                         .map(commentConverter::toDto)
-                        .collect(Collectors.toList()))
+                        .collect(Collectors.toList())
+                        : null)
                 .build();
     }
 }

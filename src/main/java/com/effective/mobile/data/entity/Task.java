@@ -16,7 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "task")
+@Table(name = "task", schema = "public")
 public class Task implements EditableUpdate<Task> {
 
     /**
@@ -37,7 +37,7 @@ public class Task implements EditableUpdate<Task> {
      */
     @ManyToOne
     @JoinColumn(name = "author_by")
-    private Users authorBy;
+    private User authorBy;
 
     /**
      * Исполнители данной задачи
@@ -46,8 +46,8 @@ public class Task implements EditableUpdate<Task> {
     @JoinTable(
             name = "task_executor",
             joinColumns = @JoinColumn(name = "task_id"),
-            inverseJoinColumns = @JoinColumn(name = "users_id"))
-    private Set<Users> executorBy;
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> executorBy;
 
     /**
      * Заголовок задачи

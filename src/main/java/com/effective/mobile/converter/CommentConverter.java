@@ -2,21 +2,17 @@ package com.effective.mobile.converter;
 
 import com.effective.mobile.data.entity.Comment;
 import com.effective.mobile.data.entity.Task;
-import com.effective.mobile.data.entity.Users;
+import com.effective.mobile.data.entity.User;
 import com.effective.mobile.model.dto.comment.CommentResponseDto;
-import com.effective.mobile.model.dto.task.TaskRequestDto;
-import com.effective.mobile.model.dto.task.TaskResponseDto;
+import com.effective.mobile.security.UserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.Set;
 
 @RequiredArgsConstructor
 @Component
 public class CommentConverter {
 
-    private final UsersConverter usersConverter;
+    private final UserConverter userConverter;
 
     /**
      * Конвертирует {@link String} в {@link Task}
@@ -30,9 +26,7 @@ public class CommentConverter {
         }
 
         return Comment.builder()
-                .author(Users.builder()
-                        .id(1L)
-                        .build())
+                .author(UserDetails.getUser())
                 .text(text)
                 .task(task)
                 .build();
@@ -52,7 +46,7 @@ public class CommentConverter {
         return CommentResponseDto.builder()
                 .id(comment.getId())
                 .createdAt(comment.getCreatedAt())
-                .authorBy(usersConverter.toDto(comment.getAuthor()))
+                .authorBy(userConverter.toDto(comment.getAuthor()))
                 .text(comment.getText())
                 .build();
     }

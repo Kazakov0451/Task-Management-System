@@ -3,5 +3,5 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
     <include file="classpath:db/changelog/changeset/01-create-tables.xml" relativeToChangelogFile="false"/>
-    <include file="classpath:db/changelog/changeset/02-create-table-task-users.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:db/changelog/changeset/02-create-table-task-user.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

@@ -1,6 +1,6 @@
 package com.effective.mobile.model.dto.comment;
 
-import com.effective.mobile.model.dto.users.UsersResponseDto;
+import com.effective.mobile.model.dto.user.UserResponseDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
@@ -30,7 +30,7 @@ public class CommentResponseDto {
      * Автор комментария
      */
     @Schema(description = "Автор комментария", requiredMode = Schema.RequiredMode.REQUIRED)
-    private UsersResponseDto authorBy;
+    private UserResponseDto authorBy;
 
     /**
      * Текст комментария

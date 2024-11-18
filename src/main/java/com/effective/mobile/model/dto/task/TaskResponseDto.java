@@ -3,7 +3,7 @@ package com.effective.mobile.model.dto.task;
 import com.effective.mobile.data.entity.enums.Priority;
 import com.effective.mobile.data.entity.enums.Status;
 import com.effective.mobile.model.dto.comment.CommentResponseDto;
-import com.effective.mobile.model.dto.users.UsersResponseDto;
+import com.effective.mobile.model.dto.user.UserResponseDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
@@ -50,10 +50,16 @@ public class TaskResponseDto {
     private Priority priority;
 
     /**
+     * Автор задачи
+     */
+    @Schema(description = "Автор задачи")
+    private UserResponseDto author;
+
+    /**
      * Множество исполнителей задачи
      */
     @Schema(description = "Множество исполнителей задачи")
-    private Set<UsersResponseDto> executorSet;
+    private Set<UserResponseDto> executorSet;
 
     /**
      * Список комментариев

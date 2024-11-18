@@ -9,6 +9,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +18,7 @@ import java.util.List;
 @RestController("api/v1/task")
 @RequestMapping("/task")
 @RequiredArgsConstructor
+@Validated
 @Tag(name = "Задачи", description = "Отображение всех задач, добавления новых, обновление и удаление")
 public class TaskController {
 
@@ -55,6 +58,7 @@ public class TaskController {
      */
     @Operation(summary = "Получения всех задач")
     @GetMapping()
+    @Secured("ADMIN")
     public List<TaskResponseDto> getAll() {
         return taskService.getAll();
     }

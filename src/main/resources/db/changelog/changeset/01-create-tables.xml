@@ -5,7 +5,7 @@
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
     <changeSet id="00" author="Kazakov Egor">
-        <createTable tableName="users" remarks="Пользователи">
+        <createTable tableName="user" remarks="Пользователи">
             <column name="id" remarks="Идентификатор" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
@@ -14,30 +14,28 @@
             </column>
             <column name="first_name" remarks="Имя" type="varchar(64)"/>
             <column name="last_name" remarks="Фамилия" type="varchar(64)"/>
-            <column name="mail" remarks="Почта" type="varchar(128)">
+            <column name="email" remarks="Почта" type="varchar(128)">
                 <constraints unique="true"/>
             </column>
             <column name="role" remarks="Роль" type="varchar(32)"/>
             <column name="password" remarks="Пароль" type="varchar(512)"/>
         </createTable>
 
-        <insert tableName="users">
-            <column name="id" value="1"/>
+        <insert tableName="user">
             <column name="created_at" value="now()"/>
             <column name="last_name" value="admin"/>
             <column name="first_name" value=""/>
-            <column name="mail" value="admin@example.com"/>
-            <column name="role" value="ROLE_ADMIN"/>
+            <column name="email" value="admin@example.com"/>
+            <column name="role" value="ADMIN"/>
             <column name="password" value="$2y$10$IhpwEMgV6XdmXPEuGBMHwOSJMIAbaDvsVS6Z6XDIYZfHlB/opvRni"/>
         </insert>
 
-        <insert tableName="users">
-            <column name="id" value="2"/>
+        <insert tableName="user">
             <column name="created_at" value="now()"/>
             <column name="last_name" value="user"/>
             <column name="first_name" value=""/>
-            <column name="mail" value="user@example.com"/>
-            <column name="role" value="ROLE_USER"/>
+            <column name="email" value="user@example.com"/>
+            <column name="role" value="USER"/>
             <column name="password" value="$2y$10$PfrnCtZ2EbvrwPdas1C5Wen98WGLNXPbejNperOL76VdzNOEAS6NC"/>
         </insert>
     </changeSet>
@@ -51,10 +49,10 @@
                 <constraints nullable="false"/>
             </column>
             <column name="author_by" remarks="Автор задачи" type="bigint">
-                <constraints references="users(id)" foreignKeyName="fk_author_by_users"/>
+                <constraints references="user(id)" foreignKeyName="fk_author_by_user"/>
             </column>
             <column name="executor_by" remarks="Исполнитель задачи" type="bigint">
-                <constraints references="users(id)" foreignKeyName="fk_executor_by_users"/>
+                <constraints references="user(id)" foreignKeyName="fk_executor_by_user"/>
             </column>
             <column name="title" remarks="Заголовок" type="varchar(64)"/>
             <column name="description" remarks="Описание" type="text"/>
@@ -75,7 +73,7 @@
                 <constraints references="task(id)" foreignKeyName="fk_task_id_task"/>
             </column>
             <column name="author_id" remarks="Идентификатор автора комментария" type="bigint">
-                <constraints references="users(id)" foreignKeyName="fk_author_id_users"/>
+                <constraints references="user(id)" foreignKeyName="fk_author_id_user"/>
             </column>
             <column name="text" remarks="Текст комментария" type="text"/>
         </createTable>

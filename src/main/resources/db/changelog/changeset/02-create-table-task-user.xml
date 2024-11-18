@@ -12,8 +12,8 @@
             <column name="task_id" remarks="Задачи" type="bigint">
                 <constraints references="task(id)" foreignKeyName="fk_task_id_task_executor"/>
             </column>
-            <column name="users_id" remarks="Исполнитель задачи" type="bigint">
-                <constraints references="users(id)" foreignKeyName="fk_users_id_task_executor"/>
+            <column name="user_id" remarks="Исполнитель задачи" type="bigint">
+                <constraints references="user(id)" foreignKeyName="fk_user_id_task_executor"/>
             </column>
         </createTable>
     </changeSet>
