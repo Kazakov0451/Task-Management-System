@@ -1,5 +1,6 @@
 package com.effective.mobile.data.entity;
 
+import com.effective.mobile.data.entity.editable_interface.EditableUpdate;
 import com.effective.mobile.data.entity.enums.Priority;
 import com.effective.mobile.data.entity.enums.Status;
 import jakarta.persistence.*;
@@ -7,6 +8,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -15,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "task")
-public class Task {
+public class Task implements EditableUpdate<Task> {
 
     /**
      * Идентификатор
@@ -38,11 +40,14 @@ public class Task {
     private Users authorBy;
 
     /**
-     * Исполнитель задачи
+     * Исполнители данной задачи
      */
-    @ManyToOne
-    @JoinColumn(name = "executor_by")
-    private Users executorBy;
+    @ManyToMany
+    @JoinTable(
+            name = "task_executor",
+            joinColumns = @JoinColumn(name = "task_id"),
+            inverseJoinColumns = @JoinColumn(name = "users_id"))
+    private Set<Users> executorBy;
 
     /**
      * Заголовок задачи
@@ -71,12 +76,30 @@ public class Task {
     /**
      * Список комментариев
      */
-    @OneToMany(mappedBy = "task")
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
     private List<Comment> commentList;
 
     @PrePersist
     private void setCreatedFields() {
         this.createdAt = LocalDateTime.now();
         this.status = this.status != null ? this.status : Status.WAITING;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Task update(Task updated) {
+        return Task.builder()
+                .id(getId())
+                .createdAt(getCreatedAt())
+                .authorBy(getAuthorBy())
+                .executorBy(updated.getExecutorBy())
+                .title(updated.getTitle())
+                .description(updated.getDescription())
+                .status(updated.getStatus())
+                .priority(updated.getPriority())
+                .commentList(getCommentList())
+                .build();
     }
 }

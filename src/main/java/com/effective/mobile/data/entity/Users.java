@@ -1,9 +1,11 @@
 package com.effective.mobile.data.entity;
 
+import com.effective.mobile.data.entity.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -58,25 +60,14 @@ public class Users {
     @Column(name = "password")
     private String password;
 
+    /**
+     * Множество задач, для которых является исполнителем
+     */
+    @ManyToMany(mappedBy = "executorBy")
+    private Set<Task> tasksExecutor;
+
     @PrePersist
     private void setCreatedFields() {
         this.createdAt = LocalDateTime.now();
-    }
-
-    @RequiredArgsConstructor
-    @Getter
-    public enum Role {
-
-        /**
-         * Администратор
-         */
-        ROLE_ADMIN("Администратор"),
-
-        /**
-         * Пользователь
-         */
-        ROLE_USER("Пользователь");
-
-        private final String stringValue;
     }
 }

@@ -39,7 +39,7 @@ public class Comment {
      */
     @ManyToOne
     @JoinColumn(name = "author_id")
-    private Task author;
+    private Users author;
 
     /**
      * Текст комментария

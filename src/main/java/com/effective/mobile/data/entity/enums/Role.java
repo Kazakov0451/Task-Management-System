@@ -5,22 +5,17 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Getter
-public enum Priority {
+public enum Role {
 
     /**
-     * Низкая
+     * Администратор
      */
-    LOW("Низкая"),
+    ROLE_ADMIN("Администратор"),
 
     /**
-     * Средняя
+     * Пользователь
      */
-    MEDIUM("Средняя"),
-
-    /**
-     * Высокая
-     */
-    HIGH("Высокая");
+    ROLE_USER("Пользователь");
 
     private final String stringValue;
 }

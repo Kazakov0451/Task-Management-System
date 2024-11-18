@@ -7,7 +7,7 @@
     <changeSet id="00" author="Kazakov Egor">
         <createTable tableName="users" remarks="Пользователи">
             <column name="id" remarks="Идентификатор" type="bigint" autoIncrement="true">
-                <constraints primaryKey="true" />
+                <constraints primaryKey="true"/>
             </column>
             <column name="created_at" remarks="Дата создания" type="timestamp without time zone">
                 <constraints nullable="false"/>
@@ -20,12 +20,32 @@
             <column name="role" remarks="Роль" type="varchar(32)"/>
             <column name="password" remarks="Пароль" type="varchar(512)"/>
         </createTable>
+
+        <insert tableName="users">
+            <column name="id" value="1"/>
+            <column name="created_at" value="now()"/>
+            <column name="last_name" value="admin"/>
+            <column name="first_name" value=""/>
+            <column name="mail" value="admin@example.com"/>
+            <column name="role" value="ROLE_ADMIN"/>
+            <column name="password" value="$2y$10$IhpwEMgV6XdmXPEuGBMHwOSJMIAbaDvsVS6Z6XDIYZfHlB/opvRni"/>
+        </insert>
+
+        <insert tableName="users">
+            <column name="id" value="2"/>
+            <column name="created_at" value="now()"/>
+            <column name="last_name" value="user"/>
+            <column name="first_name" value=""/>
+            <column name="mail" value="user@example.com"/>
+            <column name="role" value="ROLE_USER"/>
+            <column name="password" value="$2y$10$PfrnCtZ2EbvrwPdas1C5Wen98WGLNXPbejNperOL76VdzNOEAS6NC"/>
+        </insert>
     </changeSet>
 
     <changeSet id="01" author="Kazakov Egor">
         <createTable tableName="task" remarks="Задачи">
             <column name="id" remarks="Идентификатор" type="bigint" autoIncrement="true">
-                <constraints primaryKey="true" />
+                <constraints primaryKey="true"/>
             </column>
             <column name="created_at" remarks="Дата создания" type="timestamp without time zone">
                 <constraints nullable="false"/>
@@ -46,7 +66,7 @@
     <changeSet id="02" author="Kazakov Egor">
         <createTable tableName="comment" remarks="Комментарии">
             <column name="id" remarks="Идентификатор" type="bigint" autoIncrement="true">
-                <constraints primaryKey="true" />
+                <constraints primaryKey="true"/>
             </column>
             <column name="created_at" remarks="Дата создания" type="timestamp without time zone">
                 <constraints nullable="false"/>

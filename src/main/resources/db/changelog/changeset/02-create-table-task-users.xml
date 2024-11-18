@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="03" author="Kazakov Egor">
+        <createTable tableName="task_executor" remarks="Задачи и исполнители этой задачи">
+            <column name="id" remarks="Идентификатор" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="task_id" remarks="Задачи" type="bigint">
+                <constraints references="task(id)" foreignKeyName="fk_task_id_task_executor"/>
+            </column>
+            <column name="users_id" remarks="Исполнитель задачи" type="bigint">
+                <constraints references="users(id)" foreignKeyName="fk_users_id_task_executor"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
