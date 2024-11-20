@@ -1,6 +1,7 @@
 package com.effective.mobile.service.auth;
 
 import com.effective.mobile.exception.LoginOrPasswordException;
+import com.effective.mobile.exception.NotValidTokenException;
 import com.effective.mobile.model.dto.auth_token.JwtAuthenticationResponseDto;
 import com.effective.mobile.model.dto.auth_token.RefreshTokenRequest;
 import com.effective.mobile.model.dto.user.LoginFromRequestDto;
@@ -51,7 +52,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             String refreshToken = jwtTokenUtils.generateRefreshToken(userDetails);
             return new JwtAuthenticationResponseDto(accessToken, refreshToken);
         } else {
-            return null;
+            throw new NotValidTokenException(HttpStatus.FORBIDDEN, "RefreshToken не валидный");
         }
     }
 }

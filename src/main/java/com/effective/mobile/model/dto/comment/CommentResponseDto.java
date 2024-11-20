@@ -35,6 +35,6 @@ public class CommentResponseDto {
     /**
      * Текст комментария
      */
-    @Schema(description = "Текст комментария")
+    @Schema(description = "Текст комментария", requiredMode = Schema.RequiredMode.REQUIRED)
     private String text;
 }

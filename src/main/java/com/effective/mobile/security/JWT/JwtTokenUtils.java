@@ -25,12 +25,11 @@ public class JwtTokenUtils {
     private final int jwtAccessLifeTime;
     private final int jwtRefreshLifeTime;
 
-    public JwtTokenUtils(@Value("${jwt.access.secret}") String accessSecret,
-                         @Value("${jwt.refresh.secret}") String refreshSecret,
+    public JwtTokenUtils(@Value("${jwt.secret}") String secretKey,
                          @Value("${jwt.access.lifetime}") String jwtAccessLifeTime,
                          @Value("${jwt.refresh.lifetime}") String jwtRefreshLifeTime) {
-        this.accessKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(accessSecret));
-        this.refreshKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(refreshSecret));
+        this.accessKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
+        this.refreshKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
         this.jwtAccessLifeTime = Integer.parseInt(jwtAccessLifeTime);
         this.jwtRefreshLifeTime = Integer.parseInt(jwtRefreshLifeTime);
     }

@@ -33,7 +33,7 @@ public class TaskResponseDto {
     /**
      * Описание
      */
-    @Schema(description = "Описание")
+    @Schema(description = "Описание", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
     private String description;
 
     /**
@@ -46,25 +46,26 @@ public class TaskResponseDto {
     /**
      * Приоритетность задачи
      */
-    @Schema(description = "Приоритетность задачи: LOW - Низкая, MEDIUM - Средняя, HIGH - Высокая")
+    @Schema(description = "Приоритетность задачи: LOW - Низкая, MEDIUM - Средняя, HIGH - Высокая",
+            requiredMode = Schema.RequiredMode.REQUIRED)
     private Priority priority;
 
     /**
      * Автор задачи
      */
-    @Schema(description = "Автор задачи")
+    @Schema(description = "Автор задачи", requiredMode = Schema.RequiredMode.REQUIRED)
     private UserResponseDto author;
 
     /**
      * Множество исполнителей задачи
      */
-    @Schema(description = "Множество исполнителей задачи")
+    @Schema(description = "Множество исполнителей задачи", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
     private Set<UserResponseDto> executorSet;
 
     /**
      * Список комментариев
      */
-    @Schema(description = "Список комментариев")
+    @Schema(description = "Список комментариев", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
     private List<CommentResponseDto> commentList;
 
 }

@@ -1,8 +1,9 @@
-package com.effective.mobile.model.dto.task;
+package com.effective.mobile.model.dto.task.request;
 
 import com.effective.mobile.data.entity.enums.Priority;
 import com.effective.mobile.data.entity.enums.Status;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.lang.NonNull;
 
@@ -20,6 +21,7 @@ public class TaskRequestDto {
      * Заголовок
      */
     @NonNull
+    @NotBlank(message = "Заголовок должен быть не null и не пустым")
     @Schema(description = "Заголовок")
     private String title;
 

@@ -2,7 +2,7 @@ package com.effective.mobile.converter;
 
 import com.effective.mobile.data.entity.Task;
 import com.effective.mobile.data.entity.User;
-import com.effective.mobile.model.dto.task.TaskRequestDto;
+import com.effective.mobile.model.dto.task.request.TaskRequestDto;
 import com.effective.mobile.model.dto.task.TaskResponseDto;
 import com.effective.mobile.security.UserDetails;
 import lombok.RequiredArgsConstructor;
@@ -34,8 +34,8 @@ public class TaskConverter {
                 .description(taskDto.getDescription())
                 .status(taskDto.getStatus())
                 .priority(taskDto.getPriority())
-                .executorBy(executorSet)
-                .authorBy(UserDetails.getUser())
+                .executor(executorSet)
+                .author(UserDetails.getUser())
                 .build();
     }
 
@@ -56,8 +56,8 @@ public class TaskConverter {
                 .description(task.getDescription())
                 .status(task.getStatus())
                 .priority(task.getPriority())
-                .author(userConverter.toDto(task.getAuthorBy()))
-                .executorSet(task.getExecutorBy().stream()
+                .author(userConverter.toDto(task.getAuthor()))
+                .executorSet(task.getExecutor().stream()
                         .map(userConverter::toDto)
                         .collect(Collectors.toSet()))
                 .commentList(task.getCommentList() != null

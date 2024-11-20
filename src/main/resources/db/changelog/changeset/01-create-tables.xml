@@ -12,30 +12,38 @@
             <column name="created_at" remarks="Дата создания" type="timestamp without time zone">
                 <constraints nullable="false"/>
             </column>
-            <column name="first_name" remarks="Имя" type="varchar(64)"/>
-            <column name="last_name" remarks="Фамилия" type="varchar(64)"/>
-            <column name="email" remarks="Почта" type="varchar(128)">
-                <constraints unique="true"/>
+            <column name="first_name" remarks="Имя" type="varchar(64)">
+                <constraints nullable="false"/>
             </column>
-            <column name="role" remarks="Роль" type="varchar(32)"/>
-            <column name="password" remarks="Пароль" type="varchar(512)"/>
+            <column name="last_name" remarks="Фамилия" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" remarks="Почта" type="varchar(128)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="role" remarks="Роль" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" remarks="Пароль" type="varchar(512)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
 
         <insert tableName="user">
             <column name="created_at" value="now()"/>
             <column name="last_name" value="admin"/>
-            <column name="first_name" value=""/>
+            <column name="first_name" value="admin"/>
             <column name="email" value="admin@example.com"/>
-            <column name="role" value="ADMIN"/>
+            <column name="role" value="ROLE_ADMIN"/>
             <column name="password" value="$2y$10$IhpwEMgV6XdmXPEuGBMHwOSJMIAbaDvsVS6Z6XDIYZfHlB/opvRni"/>
         </insert>
 
         <insert tableName="user">
             <column name="created_at" value="now()"/>
             <column name="last_name" value="user"/>
-            <column name="first_name" value=""/>
+            <column name="first_name" value="user"/>
             <column name="email" value="user@example.com"/>
-            <column name="role" value="USER"/>
+            <column name="role" value="ROLE_USER"/>
             <column name="password" value="$2y$10$PfrnCtZ2EbvrwPdas1C5Wen98WGLNXPbejNperOL76VdzNOEAS6NC"/>
         </insert>
     </changeSet>
@@ -48,16 +56,19 @@
             <column name="created_at" remarks="Дата создания" type="timestamp without time zone">
                 <constraints nullable="false"/>
             </column>
-            <column name="author_by" remarks="Автор задачи" type="bigint">
-                <constraints references="user(id)" foreignKeyName="fk_author_by_user"/>
+            <column name="author" remarks="Автор задачи" type="bigint">
+                <constraints references="user(id)" foreignKeyName="fk_author_user" nullable="false"/>
             </column>
-            <column name="executor_by" remarks="Исполнитель задачи" type="bigint">
-                <constraints references="user(id)" foreignKeyName="fk_executor_by_user"/>
+            <column name="title" remarks="Заголовок" type="varchar(64)">
+                <constraints nullable="false"/>
             </column>
-            <column name="title" remarks="Заголовок" type="varchar(64)"/>
             <column name="description" remarks="Описание" type="text"/>
-            <column name="status" remarks="Статус" type="varchar(16)"/>
-            <column name="priority" remarks="Приоритет" type="varchar(16)"/>
+            <column name="status" remarks="Статус" type="varchar(16)" defaultValue="WAITING">
+                <constraints nullable="false"/>
+            </column>
+            <column name="priority" remarks="Приоритет" type="varchar(16)" defaultValue="MEDIUM">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 
@@ -70,12 +81,14 @@
                 <constraints nullable="false"/>
             </column>
             <column name="task_id" remarks="Идентификатор задачи" type="bigint">
-                <constraints references="task(id)" foreignKeyName="fk_task_id_task"/>
+                <constraints references="task(id)" foreignKeyName="fk_task_id_task" nullable="false"/>
             </column>
             <column name="author_id" remarks="Идентификатор автора комментария" type="bigint">
-                <constraints references="user(id)" foreignKeyName="fk_author_id_user"/>
+                <constraints references="user(id)" foreignKeyName="fk_author_id_user" nullable="false"/>
             </column>
-            <column name="text" remarks="Текст комментария" type="text"/>
+            <column name="text" remarks="Текст комментария" type="text">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 </databaseChangeLog>

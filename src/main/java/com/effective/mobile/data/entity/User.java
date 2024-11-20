@@ -68,7 +68,7 @@ public class User implements UserDetails {
     /**
      * Множество задач, для которых является исполнителем
      */
-    @ManyToMany(mappedBy = "executorBy")
+    @ManyToMany(mappedBy = "executor")
     private Set<Task> tasksExecutor;
 
     @PrePersist

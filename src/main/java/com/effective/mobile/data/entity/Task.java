@@ -36,8 +36,8 @@ public class Task implements EditableUpdate<Task> {
      * Автор задачи
      */
     @ManyToOne
-    @JoinColumn(name = "author_by")
-    private User authorBy;
+    @JoinColumn(name = "author")
+    private User author;
 
     /**
      * Исполнители данной задачи
@@ -47,7 +47,7 @@ public class Task implements EditableUpdate<Task> {
             name = "task_executor",
             joinColumns = @JoinColumn(name = "task_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Set<User> executorBy;
+    private Set<User> executor;
 
     /**
      * Заголовок задачи
@@ -64,12 +64,14 @@ public class Task implements EditableUpdate<Task> {
     /**
      * Статус
      */
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private Status status;
 
     /**
      * Приоритет
      */
+    @Enumerated(EnumType.STRING)
     @Column(name = "priority")
     private Priority priority;
 
@@ -83,6 +85,7 @@ public class Task implements EditableUpdate<Task> {
     private void setCreatedFields() {
         this.createdAt = LocalDateTime.now();
         this.status = this.status != null ? this.status : Status.WAITING;
+        this.priority = this.priority != null ? this.priority : Priority.MEDIUM;
     }
 
     /**
@@ -93,8 +96,8 @@ public class Task implements EditableUpdate<Task> {
         return Task.builder()
                 .id(getId())
                 .createdAt(getCreatedAt())
-                .authorBy(getAuthorBy())
-                .executorBy(updated.getExecutorBy())
+                .author(getAuthor())
+                .executor(updated.getExecutor())
                 .title(updated.getTitle())
                 .description(updated.getDescription())
                 .status(updated.getStatus())

@@ -2,7 +2,7 @@ package com.effective.mobile.converter;
 
 import com.effective.mobile.data.entity.Comment;
 import com.effective.mobile.data.entity.Task;
-import com.effective.mobile.data.entity.User;
+import com.effective.mobile.model.dto.comment.CommentRequestDto;
 import com.effective.mobile.model.dto.comment.CommentResponseDto;
 import com.effective.mobile.security.UserDetails;
 import lombok.RequiredArgsConstructor;
@@ -17,17 +17,17 @@ public class CommentConverter {
     /**
      * Конвертирует {@link String} в {@link Task}
      *
-     * @param text Текст комментария
+     * @param commentDto ДТО с Текстом комментария
      * @return ДАО объект
      */
-    public Comment toEntity(String text, Task task) {
-        if (text == null) {
+    public Comment toEntity(CommentRequestDto commentDto, Task task) {
+        if (commentDto == null) {
             return null;
         }
 
         return Comment.builder()
                 .author(UserDetails.getUser())
-                .text(text)
+                .text(commentDto.comment())
                 .task(task)
                 .build();
     }

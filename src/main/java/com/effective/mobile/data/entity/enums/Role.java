@@ -10,12 +10,12 @@ public enum Role {
     /**
      * Администратор
      */
-    ADMIN("Администратор"),
+    ROLE_ADMIN("Администратор"),
 
     /**
      * Пользователь
      */
-    USER("Пользователь");
+    ROLE_USER("Пользователь");
 
     private final String stringValue;
 }
