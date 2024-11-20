@@ -1,4 +1,4 @@
-# TaskManagementSystem
+# Task-Management-System
 
 ## Развёртка проекта
 
